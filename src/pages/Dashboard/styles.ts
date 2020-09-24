@@ -28,6 +28,12 @@ export const Card = styled.div`
   padding: 22px 32px;
   border-radius: 5px;
   color: ${({ total }: CardProps): string => (total ? '#fff' : '#363F5F')};
+  transition: transform 200ms;
+
+  :hover {
+    transform: scale(1.05);
+    cursor: pointer;
+  }
 
   header {
     display: flex;
@@ -53,6 +59,16 @@ export const TableContainer = styled.section`
   table {
     width: 100%;
     border-spacing: 0 8px;
+
+    tbody {
+      tr {
+        transition: all 150ms;
+        :hover {
+          transform: translateX(10px);
+          cursor: pointer;
+        }
+      }
+    }
 
     th {
       color: #969cb3;

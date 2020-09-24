@@ -1,7 +1,15 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { Link } from 'react-router-dom';
 
 interface ContainerProps {
   size?: 'small' | 'large';
+}
+
+interface NavProps {
+  pathname: string;
+}
+interface LinkProps {
+  ['data-hasunderline']: boolean;
 }
 
 export const Container = styled.div<ContainerProps>`
@@ -15,22 +23,55 @@ export const Container = styled.div<ContainerProps>`
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+`;
 
-    nav {
-      a {
-        color: #fff;
-        text-decoration: none;
-        font-size: 16px;
-        transition: opacity 0.2s;
+export const CustomLink = styled(Link) <LinkProps>`
+  position: relative;
 
-        & + a {
-          margin-left: 32px;
+  ${props => {
+    return (
+      props['data-hasunderline'] &&
+      css`
+        @keyframes grow {
+          from {
+            transform: scale(0);
+          }
+
+          to {
+            transform: scale(1);
+          }
         }
 
-        &:hover {
-          opacity: 0.6;
+        &: after {
+          content: '';
+          position: absolute;
+          background: #ff872c;
+          width: 73px;
+          height: 2px;
+          bottom: -10px;
+          left: 0;
+          animation-name: grow;
+          animation-duration: 500ms;
         }
-      }
+      `
+    );
+  }}
+`;
+
+export const Nav = styled.nav<NavProps>`
+  a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    transition: opacity 0.2s;
+
+    & + a {
+      margin-left: 32px;
+    }
+
+    &:hover {
+      opacity: 0.6;
     }
   }
 `;
